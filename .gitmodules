@@ -1,0 +1,6 @@
+[submodule "digoDroid"]
+	path = digoDroid
+	url = https://digovc@bitbucket.org/digovc/digodroid-gradle.git
+[submodule "digoJava"]
+	path = digoJava
+	url = https://digovc@bitbucket.org/digovc/digojava-gradle.git

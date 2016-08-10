@@ -1,4 +1,4 @@
-package digosofter.com.poketravel;
+package com.digosofter.poketravel;
 
 import org.junit.Test;
 

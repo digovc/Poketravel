@@ -1,4 +1,4 @@
-package digosofter.com.poketravel;
+package com.digosofter.poketravel;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

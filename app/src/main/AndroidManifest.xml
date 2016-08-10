@@ -1,12 +1,45 @@
-<manifest package="digosofter.com.poketravel"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="com.digosofter.poketravel"
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Permissões -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission
+        android:name="android.permission.ACCESS_MOCK_LOCATION"
+        tools:ignore="MockLocation"/>
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:supportsRtl="true">
+
+        <!-- Activity inicial -->
+        <activity
+            android:name=".activity.ActPrincipal"
+            android:configChanges="orientation|screenSize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activity.ActMapaEditor"
+            android:configChanges="orientation|screenSize"/>
+        <activity
+            android:name=".activity.ActViagemEditor"
+            android:configChanges="orientation|screenSize"/>
+
+        <service android:name=".SrvGpsMock"/>
+
+        <!-- Chave de debug -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAkaw_ZJ56E_XaFfet8MARiqxGp7_lH1Do"/>
 
     </application>
 
