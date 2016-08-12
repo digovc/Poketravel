@@ -34,7 +34,7 @@
             android:name=".activity.ActViagemEditor"
             android:configChanges="orientation|screenSize"/>
 
-        <service android:name=".SrvGpsMock"/>
+        <service android:name=".service.SrvViagem"/>
 
         <!-- Chave de debug -->
         <meta-data

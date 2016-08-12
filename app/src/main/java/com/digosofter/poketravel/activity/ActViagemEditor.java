@@ -67,6 +67,7 @@ public class ActViagemEditor extends ActPoketravelMain
     super.onCreateOptionsMenu(mnu);
 
     mnu.add(STR_MENU_ITEM_SALVAR_VIAGEM).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+    mnu.add(STR_MENU_ITEM_CARREGAR_MAPA).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
     return true;
   }
@@ -87,6 +88,9 @@ public class ActViagemEditor extends ActPoketravelMain
 
     switch (mni.getTitle().toString())
     {
+      case STR_MENU_ITEM_CARREGAR_MAPA:
+        return this.carregarMapa();
+
       case STR_MENU_ITEM_SALVAR_VIAGEM:
         return this.salvarViagem();
     }

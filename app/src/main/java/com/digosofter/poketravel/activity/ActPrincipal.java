@@ -5,17 +5,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.digosofter.poketravel.AppPoketravel;
-import com.digosofter.poketravel.SrvGpsMock;
 import com.digosofter.poketravel.arquivo.ArqMapa;
 import com.digosofter.poketravel.arquivo.ArqViagem;
 import com.digosofter.poketravel.dominio.Mapa;
 import com.digosofter.poketravel.dominio.MapaItem;
 import com.digosofter.poketravel.dominio.Viagem;
 import com.digosofter.poketravel.dominio.ViagemItem;
+import com.digosofter.poketravel.service.SrvViagem;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 
 public class ActPrincipal extends ActPoketravelMain
 {
-  private final String STR_MENU_ITEM_CARREGAR_MAPA = "Carregar mapa";
   private final String STR_MENU_ITEM_CARREGAR_VIAGEM = "Carregar viagem";
   private final String STR_MENU_ITEM_CONFIGURACAO = "Configuração";
   private final String STR_MENU_ITEM_CRIAR_MAPA = "Criar mapa";
@@ -24,47 +25,6 @@ public class ActPrincipal extends ActPoketravelMain
   private final String STR_MENU_ITEM_PARAR_VIAGEM = "Parar viagem";
 
   private Viagem _objViagem;
-
-  private boolean carregarMapa()
-  {
-    ArqMapa arqMapa = new ArqMapa();
-
-    arqMapa.setStrNome("Mapa de teste.pokemapa");
-
-    Mapa objMapa = AppPoketravel.getI().getObjGson().fromJson(arqMapa.getStrConteudo(), Mapa.class);
-
-    if (objMapa == null)
-    {
-      return false;
-    }
-
-    this.carregarMapa(objMapa);
-
-    return true;
-  }
-
-  private void carregarMapa(final Mapa objMapa)
-  {
-    if (objMapa == null)
-    {
-      return;
-    }
-
-    if (objMapa.getArrObjMapaItem() == null)
-    {
-      return;
-    }
-
-    if (objMapa.getArrObjMapaItem().isEmpty())
-    {
-      return;
-    }
-
-    for (MapaItem objMapaItem : objMapa.getArrObjMapaItem())
-    {
-      this.addMapaItem(objMapaItem);
-    }
-  }
 
   private boolean carregarViagem()
   {
@@ -96,10 +56,14 @@ public class ActPrincipal extends ActPoketravelMain
 
     this.getObjViagem().inicializar(this.getObjGoogleMap());
 
-    for (ViagemItem objViagemItem : getObjViagem().getArrObjViagemItem())
+    LatLngBounds.Builder objLatLngBoundsBuilder = LatLngBounds.builder();
+
+    for (ViagemItem objViagemItem : this.getObjViagem().getArrObjViagemItem())
     {
-      this.addViagemItem(getObjViagem(), objViagemItem);
+      this.addViagemItem(objLatLngBoundsBuilder, this.getObjViagem(), objViagemItem);
     }
+
+    this.zoom(objLatLngBoundsBuilder);
 
     return true;
   }
@@ -146,13 +110,13 @@ public class ActPrincipal extends ActPoketravelMain
       return false;
     }
 
-    AppPoketravel.getI().setObjViagem(this.getObjViagem());
-    AppPoketravel.getI().setObjLatLng(this.getObjViagem().getArrObjViagemItem().get(0).getObjLatLng());
     AppPoketravel.getI().setBooPararViagem(false);
+    AppPoketravel.getI().setObjLatLng(new LatLng(this.getObjViagem().getArrObjViagemItem().get(0).getObjLatLng().latitude, this.getObjViagem().getArrObjViagemItem().get(0).getObjLatLng().longitude));
+    AppPoketravel.getI().setObjViagem(this.getObjViagem());
 
     this.mostrarNotificacao();
 
-    Intent itt = new Intent(this, SrvGpsMock.class);
+    Intent itt = new Intent(this, SrvViagem.class);
 
     this.startService(itt);
 

@@ -34,7 +34,7 @@ public class ActMapaEditor extends ActPoketravelMain implements MenuItem.OnMenuI
     this.getPnlMapaContainer().showContextMenu();
   }
 
-  private boolean addMapaItemGinazio()
+  private boolean addMapaItem(final MapaItem.EnmTipo enmTipo)
   {
     if (this.getObjMapaItem() == null)
     {
@@ -46,7 +46,7 @@ public class ActMapaEditor extends ActPoketravelMain implements MenuItem.OnMenuI
       return false;
     }
 
-    this.getObjMapaItem().setEnmTipo(MapaItem.EnmTipo.GINASIO);
+    this.getObjMapaItem().setEnmTipo(enmTipo);
 
     this.getObjMapa().addObjMapaItem(this.getObjMapaItem());
 
@@ -55,25 +55,14 @@ public class ActMapaEditor extends ActPoketravelMain implements MenuItem.OnMenuI
     return true;
   }
 
+  private boolean addMapaItemGinazio()
+  {
+    return this.addMapaItem(MapaItem.EnmTipo.GINASIO);
+  }
+
   private boolean addMapaItemPokeshop()
   {
-    if (this.getObjMapaItem() == null)
-    {
-      return false;
-    }
-
-    if (this.getObjMapaItem().getObjLatLng() == null)
-    {
-      return false;
-    }
-
-    this.getObjMapaItem().setEnmTipo(MapaItem.EnmTipo.POKESHOP);
-
-    this.getObjMapa().addObjMapaItem(this.getObjMapaItem());
-
-    this.addMapaItem(this.getObjMapaItem());
-
-    return true;
+    return this.addMapaItem(MapaItem.EnmTipo.POKESHOP);
   }
 
   private Mapa getObjMapa()
