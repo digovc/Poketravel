@@ -39,7 +39,7 @@ public class GpsProvider extends Objeto
       return;
     }
 
-    Location objLocation = new Location(this.getStrLocationProviderName());
+    Location objLocation = new Location("gps");
 
     if (Build.VERSION.SDK_INT >= 17)
     {
@@ -51,7 +51,6 @@ public class GpsProvider extends Objeto
     objLocation.setBearing(0.0f);
     objLocation.setLatitude(this.getObjLatLng().latitude);
     objLocation.setLongitude(this.getObjLatLng().longitude);
-    objLocation.setProvider(this.getStrLocationProviderName());
     objLocation.setTime(System.currentTimeMillis());
 
     try
@@ -65,7 +64,7 @@ public class GpsProvider extends Objeto
     }
   }
 
-  void finaliza()
+  void finalizar()
   {
     if (!this.getObjLocationManager().isProviderEnabled(this.getStrLocationProviderName()))
     {

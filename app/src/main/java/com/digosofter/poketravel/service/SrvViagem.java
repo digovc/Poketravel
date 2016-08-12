@@ -13,7 +13,7 @@ import com.google.android.gms.maps.model.LatLng;
 public class SrvViagem extends ServiceMain
 {
   private static final double DBL_VELOCIDADE_28_8_KM_H = 0.01d;
-  private static final double DBL_VELOCIDADE_TEST = 0.0001d;
+  private static final double DBL_VELOCIDADE_TEST = 0.00005d;
   private static final double DBL_VELOCIDADE = DBL_VELOCIDADE_TEST;
   private static final int INT_INTERVALO_MILISEGUNDO = 1000;
   private GpsProvider _gpsProviderGps;
@@ -28,7 +28,7 @@ public class SrvViagem extends ServiceMain
 
   private void atualizarLocalizacao()
   {
-    this.getGpsProviderGps().setObjLatLng(AppPoketravel.getI().getObjLatLng());
+    //    this.getGpsProviderGps().setObjLatLng(AppPoketravel.getI().getObjLatLng());
     this.getGpsProviderNetwork().setObjLatLng(AppPoketravel.getI().getObjLatLng());
   }
 
@@ -168,7 +168,7 @@ public class SrvViagem extends ServiceMain
   {
     super.inicializar();
 
-    this.getGpsProviderGps().iniciar();
+    //    this.getGpsProviderGps().iniciar();
     this.getGpsProviderNetwork().iniciar();
   }
 
