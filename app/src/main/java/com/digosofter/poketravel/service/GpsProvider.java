@@ -46,7 +46,7 @@ public class GpsProvider extends Objeto
       objLocation.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
     }
 
-    objLocation.setAccuracy(1.0f);
+    objLocation.setAccuracy(0.001f);
     objLocation.setAltitude(0.0d);
     objLocation.setBearing(0.0f);
     objLocation.setLatitude(this.getObjLatLng().latitude);

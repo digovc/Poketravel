@@ -19,7 +19,8 @@
         <!-- Activity inicial -->
         <activity
             android:name=".activity.ActPrincipal"
-            android:configChanges="orientation|screenSize">
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

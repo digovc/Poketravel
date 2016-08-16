@@ -21,12 +21,18 @@ public class AppPoketravel extends AppAndroid
   }
 
   private boolean _booPararViagem = true;
+  private boolean _booPausarViagem;
   private LatLng _objLatLng;
   private Viagem _objViagem;
 
   public boolean getBooPararViagem()
   {
     return _booPararViagem;
+  }
+
+  public boolean getBooPausarViagem()
+  {
+    return _booPausarViagem;
   }
 
   @Override
@@ -48,6 +54,11 @@ public class AppPoketravel extends AppAndroid
   public void setBooPararViagem(boolean booPararViagem)
   {
     _booPararViagem = booPararViagem;
+  }
+
+  public void setBooPausarViagem(boolean booPausarViagem)
+  {
+    _booPausarViagem = booPausarViagem;
   }
 
   public void setObjLatLng(LatLng objLatLng)

@@ -13,10 +13,9 @@ import com.google.android.gms.maps.model.LatLng;
 public class SrvViagem extends ServiceMain
 {
   private static final double DBL_VELOCIDADE_28_8_KM_H = 0.01d;
-  private static final double DBL_VELOCIDADE_TEST = 0.00005d;
+  private static final double DBL_VELOCIDADE_TEST = 0.000005d;
   private static final double DBL_VELOCIDADE = DBL_VELOCIDADE_TEST;
-  private static final int INT_INTERVALO_MILISEGUNDO = 1000;
-  private GpsProvider _gpsProviderGps;
+  private static final int INT_INTERVALO_MILISEGUNDO = 10;
   private GpsProvider _gpsProviderNetwork;
   private LatLng _objLatLngProximo;
   private Viagem _objViagem;
@@ -28,7 +27,6 @@ public class SrvViagem extends ServiceMain
 
   private void atualizarLocalizacao()
   {
-    //    this.getGpsProviderGps().setObjLatLng(AppPoketravel.getI().getObjLatLng());
     this.getGpsProviderNetwork().setObjLatLng(AppPoketravel.getI().getObjLatLng());
   }
 
@@ -122,18 +120,6 @@ public class SrvViagem extends ServiceMain
     this.setObjLatLngProximo(this.getObjViagem().getArrObjViagemItem().get(intIndex).getObjLatLng());
   }
 
-  private GpsProvider getGpsProviderGps()
-  {
-    if (_gpsProviderGps != null)
-    {
-      return _gpsProviderGps;
-    }
-
-    _gpsProviderGps = new GpsProvider(this, GpsProvider.EnmTipo.GPS);
-
-    return _gpsProviderGps;
-  }
-
   private GpsProvider getGpsProviderNetwork()
   {
     if (_gpsProviderNetwork != null)
@@ -168,7 +154,6 @@ public class SrvViagem extends ServiceMain
   {
     super.inicializar();
 
-    //    this.getGpsProviderGps().iniciar();
     this.getGpsProviderNetwork().iniciar();
   }
 
@@ -177,6 +162,7 @@ public class SrvViagem extends ServiceMain
     this.calcularObjLatLngProximo();
     this.calcularObjLatLng();
     this.atualizarLocalizacao();
+    this.verificarStatus();
 
     SystemClock.sleep(INT_INTERVALO_MILISEGUNDO);
   }
@@ -230,11 +216,21 @@ public class SrvViagem extends ServiceMain
 
   private void verificarStatus()
   {
-    if (!AppPoketravel.getI().getBooPararViagem())
+    if (AppPoketravel.getI().getBooPararViagem())
     {
+      this.setBooParar(true);
       return;
     }
 
-    this.setBooParar(true);
+    while (AppPoketravel.getI().getBooPausarViagem())
+    {
+      if (AppPoketravel.getI().getBooPararViagem())
+      {
+        this.setBooParar(true);
+        return;
+      }
+
+      SystemClock.sleep(INT_INTERVALO_MILISEGUNDO);
+    }
   }
 }

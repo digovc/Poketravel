@@ -5,12 +5,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.digosofter.poketravel.AppPoketravel;
-import com.digosofter.poketravel.arquivo.ArqMapa;
 import com.digosofter.poketravel.arquivo.ArqViagem;
-import com.digosofter.poketravel.dominio.Mapa;
-import com.digosofter.poketravel.dominio.MapaItem;
 import com.digosofter.poketravel.dominio.Viagem;
 import com.digosofter.poketravel.dominio.ViagemItem;
+import com.digosofter.poketravel.notification.ControlNotification;
 import com.digosofter.poketravel.service.SrvViagem;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
@@ -23,7 +21,7 @@ public class ActPrincipal extends ActPoketravelMain
   private final String STR_MENU_ITEM_CRIAR_VIAGEM = "Criar viagem";
   private final String STR_MENU_ITEM_INICIAR_VIAGEM = "Iniciar viagem";
   private final String STR_MENU_ITEM_PARAR_VIAGEM = "Parar viagem";
-
+  private ControlNotification _objControlNotification;
   private Viagem _objViagem;
 
   private boolean carregarViagem()
@@ -80,6 +78,28 @@ public class ActPrincipal extends ActPoketravelMain
     return true;
   }
 
+  @Override
+  protected void finalizar()
+  {
+    super.finalizar();
+
+    AppPoketravel.getI().setBooPararViagem(true);
+
+    this.getObjControlNotification().fechar();
+  }
+
+  private ControlNotification getObjControlNotification()
+  {
+    if (_objControlNotification != null)
+    {
+      return _objControlNotification;
+    }
+
+    _objControlNotification = new ControlNotification(this);
+
+    return _objControlNotification;
+  }
+
   private Viagem getObjViagem()
   {
     return _objViagem;
@@ -127,7 +147,7 @@ public class ActPrincipal extends ActPoketravelMain
 
   private void mostrarNotificacao()
   {
-
+    this.getObjControlNotification().mostrarNotificacao();
   }
 
   @Override
@@ -151,6 +171,18 @@ public class ActPrincipal extends ActPoketravelMain
     }
 
     return true;
+  }
+
+  @Override
+  protected void onNewIntent(final Intent itt)
+  {
+    super.onNewIntent(itt);
+
+    if (itt.getBooleanExtra(ControlNotification.STR_CONTROL_NOTIFICATION_COMANDO, false))
+    {
+      this.getObjControlNotification().processarOnClick();
+      return;
+    }
   }
 
   @Override
