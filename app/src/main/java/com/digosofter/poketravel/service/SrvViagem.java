@@ -12,10 +12,9 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class SrvViagem extends ServiceMain
 {
-  private static final double DBL_VELOCIDADE_28_8_KM_H = 0.01d;
-  private static final double DBL_VELOCIDADE_TEST = 0.000005d;
-  private static final double DBL_VELOCIDADE = DBL_VELOCIDADE_TEST;
-  private static final int INT_INTERVALO_MILISEGUNDO = 10;
+  //  private static final double DBL_VELOCIDADE_28_8_KM_H = 0.01d;
+  private static final double DBL_VELOCIDADE = 0.0000050d;
+  private static final int INT_INTERVALO_MILISEGUNDO = 50;
   private GpsProvider _gpsProviderNetwork;
   private LatLng _objLatLngProximo;
   private Viagem _objViagem;

@@ -56,6 +56,8 @@ public class GpsProvider extends Objeto
     try
     {
       this.getObjLocationManager().setTestProviderLocation(this.getStrLocationProviderName(), objLocation);
+      this.getObjLocationManager().setTestProviderLocation("gps", objLocation);
+
       Log.d("Localização", this.getObjLatLng().toString());
     }
     catch (IllegalArgumentException ex)
